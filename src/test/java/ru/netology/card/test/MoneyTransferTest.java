@@ -60,4 +60,25 @@ public class MoneyTransferTest {
         assertEquals(firstCardBalanceAfterTransfer, firstCardNewBalance);
         assertEquals(secondCArdBalanceAfterTransfer, secondCArdNewBalance);
     }
+
+    @Test
+    public void transferFromTheFirstCardToTheSecondMoreThanThereIsMoney() {
+        int amount = 100_000;
+        var firstCardData = CardData.getFirstCardData();
+        var secondCardData = CardData.getSecondCardData();
+        val moneyTransferPage = dashboardPage.secondCard();
+        moneyTransferPage.moneyTransfer(firstCardData, amount);
+        moneyTransferPage.notEnoughMoneyError(firstCardData, amount);
+    }
+
+    @Test
+    public void transferFromTheSecondCardToTheFirstMoreThanThereIsMoney() {
+        int amount = 110_000;
+        var secondCardData = CardData.getSecondCardData();
+        var firstCardData = CardData.getFirstCardData();
+        val moneyTransferPage = dashboardPage.secondCard();
+        moneyTransferPage.moneyTransfer(firstCardData, amount);
+        moneyTransferPage.notEnoughMoneyError(firstCardData, amount);
+    }
+
 }
