@@ -21,13 +21,8 @@ public class MoneyTransferPage {
         transferButton.click();
     }
 
-    public void notEnoughMoneyError(CardData cardData, int amount) {
-        sumField.setValue(String.valueOf(amount));
-        cardField.setValue(cardData.getCardNumber());
-        transferButton.click();
-        if (amount > Integer.parseInt(cardData.getCardBalance())) {
-            notEnoughMoneyError.shouldBe(Condition.visible);
-        }
-
+    public void notEnoughMoneyError() {
+        notEnoughMoneyError.shouldBe(Condition.visible);
     }
+
 }

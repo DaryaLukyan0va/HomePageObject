@@ -1,9 +1,7 @@
 package ru.netology.card.test;
 
-import com.codeborne.selenide.Condition;
+
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
 import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MoneyTransferTest {
 
     DashboardPage dashboardPage;
-    private SelenideElement notEnoughMoneyError;
 
     @BeforeEach
     void setUp() {
@@ -69,23 +66,18 @@ public class MoneyTransferTest {
     public void transferFromTheFirstCardToTheSecondMoreThanThereIsMoney() {
         int amount = 100_000;
         var firstCardData = CardData.getFirstCardData();
-        var secondCardData = CardData.getSecondCardData();
-        val moneyTransferPage = dashboardPage.secondCard();
+        var moneyTransferPage = dashboardPage.secondCard();
         moneyTransferPage.moneyTransfer(firstCardData, amount);
+        moneyTransferPage.notEnoughMoneyError();
     }
 
     @Test
     public void transferFromTheSecondCardToTheFirstMoreThanThereIsMoney() {
         int amount = 110_000;
         var secondCardData = CardData.getSecondCardData();
-        var firstCardData = CardData.getFirstCardData();
-        val moneyTransferPage = dashboardPage.secondCard();
+        var moneyTransferPage = dashboardPage.firstCard();
         moneyTransferPage.moneyTransfer(secondCardData, amount);
-    }
-
-    @Test
-    public void notEnoughMoneyError() {
-        notEnoughMoneyError.shouldBe(Condition.visible);
+        moneyTransferPage.notEnoughMoneyError();
     }
 
 }
